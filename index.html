@@ -7,8 +7,25 @@
     <title>My G-Keep</title>
 </head>
 <body>
+    <div class="header">
+        <div class="container">
+            <h1 class="header__title">My G-Keep</h1>
+            <h2 class="header__subtitle">Note Manager</h2>
+        </div>
+    </div>
+    <!-- Search and sort fields -->
+    <div class="actions">
+        <div class="actions__container">
+            <input id="search-text" type="text" class="input" placeholder="Search">
+            <select name="" id="filter-by" class="dropdown">
+                <option value="byEdited">by edited</option>
+                <option value="byCreated">by created</option>
+                <option value="alphabetical">alphabetical</option>
+            </select>
+        </div>
+    </div>
     <!-- Main container for saved notes -->
-    <div class="notes-bank">Пока нет заметок</div>
+    <div class="notes-bank"></div>
     <!-- Modal Window-->
     <div class="modal">
         <div class="modal-content">
@@ -21,16 +38,17 @@
             </div>
             <div class="modal-footer">
                 <div class="modal-buttons">
-                    <button class="buttons" id="save-btn">Save</button><!--
-                    --><button class="buttons" id="close-btn">Close</button>
+                    <div class="buttons" id="save-btn"><img src="./icons/checked.png" alt="Save" class="buttons-icons"></div><!--
+                    --><div class="buttons" id="close-btn"><img src="./icons/cancel.png" alt="Cancel" class="buttons-icons"></div>
                 </div>
             </div>
         </div>
     </div>
     
-    <button class="buttons" id="add-btn">Add</button>
+    <div class="buttons" id="add-btn"><img src="./icons/add.png" alt="Add" class="buttons-icons"></div>
 
     <script src="scripts/storage.js"></script>
+    <script src="scripts/functions.js"></script>
     <script src="scripts/app.js"></script>
 </body>
 </html>
