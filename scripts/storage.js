@@ -1,4 +1,4 @@
-class Service {
+class Storage {
 
     constructor() {
         this.store = {}        
@@ -6,9 +6,10 @@ class Service {
     }
 
     add(obj) {
-        let id = `id-${this._count}`
+        let id = `${this._count}` 
         this.store[id] = obj
         this._count++
+        return id
     }
 
     getById(id) {

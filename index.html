@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>My G-Keep</title>
 </head>
 <body>
+    <!-- Main container for saved notes -->
+    <div class="notes-bank">Пока нет заметок</div>
+    <!-- Modal Window-->
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">                
+                <h2>Modal Header</h2>
+            </div>
+            <div class="modal-body">
+                <input type="text" placeholder="Name your note..." class="note-title"><!-- 
+                --><textarea name="" placeholder="Enter your note..." class="note-textarea"></textarea>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-buttons">
+                    <button class="buttons" id="save-btn">Save</button><!--
+                    --><button class="buttons" id="close-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
+    <button class="buttons" id="add-btn">Add</button>
+
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/app.js"></script>
 </body>
 </html>
