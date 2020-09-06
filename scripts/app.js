@@ -13,7 +13,20 @@ const closeBtn = document.getElementById("close-btn")
 const saveBtn = document.getElementById("save-btn")
 
 // Auxiliary variables
-let currentId = null;
+let currentId = null
+
+// Welcome message
+storage.add(['Welcome to G-keep!', 'Here you can keep your notes safe!'])
+
+// Set initial value of time and filter
+const timeStamp = moment().valueOf()
+const filters = {
+    searchText: '',
+    sortBy: 'byEdited'
+}
+
+// Show start page
+renderNotes(storage, filters);
 
 // When the user clicks the button, open the modal
 addBtn.onclick = function() {
@@ -39,5 +52,19 @@ window.onclick = function(event) {
 }
 
 // Testing area
-storage.add(['Welcome to G-keep!', 'Here you can keep your notes safe!'])
-displayAllNotes()
+
+
+
+
+// When the user enters text into the search bar
+document.querySelector('#search-text').addEventListener('input', (e) => {
+  filters.searchText = e.target.value
+  renderNotes(storage, filters)
+})
+
+// When a user selects a filter
+document.querySelector('#filter-by').addEventListener('change', (e) => {
+  filters.sortBy = e.target.value
+  renderNotes(storage, filters)
+})
+
