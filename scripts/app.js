@@ -14,24 +14,30 @@ const saveBtn = document.getElementById("save-btn")
 
 // Auxiliary variables
 let currentId = null
-
-// Welcome message
-storage.add(['Welcome to G-keep!', 'Here you can keep your notes safe!'])
-
-// Set initial value of time and filter
 const timeStamp = moment().valueOf()
 const filters = {
     searchText: '',
     sortBy: 'byEdited'
 }
+const startId = uuidv4();
+
+// Welcome message
+storage.add(startId, {
+  id: startId,
+  title: 'Welcome to G-keep!', 
+  content: 'Here you can keep your notes safe!',
+  createdAt: timeStamp,
+  updatedAt: timeStamp,
+})
 
 // Show start page
-renderNotes(storage, filters);
+renderNotes(storage, filters, bank);
 
 // When the user clicks the button, open the modal
 addBtn.onclick = function() {
   modal.style.display = "block"
-  clickOnAddBtn()
+  noteTitle.value = ''
+  noteText.value = ''
 }
 
 // When the user clicks on close button, close the modal
@@ -40,7 +46,7 @@ closeBtn.onclick = function() {
 }
 
 saveBtn.onclick = function () {
-  saveNote()
+  saveNote(noteTitle, noteText, bank)
   modal.style.display = "none"
 }
 
@@ -51,20 +57,15 @@ window.onclick = function(event) {
   }
 }
 
-// Testing area
-
-
-
-
 // When the user enters text into the search bar
 document.querySelector('#search-text').addEventListener('input', (e) => {
   filters.searchText = e.target.value
-  renderNotes(storage, filters)
+  renderNotes(storage, filters, bank)
 })
 
 // When a user selects a filter
 document.querySelector('#filter-by').addEventListener('change', (e) => {
   filters.sortBy = e.target.value
-  renderNotes(storage, filters)
+  renderNotes(storage, filters, bank)
 })
 

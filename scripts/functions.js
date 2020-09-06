@@ -1,158 +1,160 @@
-const displayNote = (id, title, text) => {
+// Adds a container with a note to the page
+const displayNote = (note, place) => {
 
-  // Note container
   let newContainer = document.createElement('div')
   newContainer.className = 'note-container'
-  newContainer.id = id
-  newContainer.setAttribute('onclick', 'clickOnNote(this.id)');
+  newContainer.id = note.id
+  newContainer.setAttribute('onclick', 'clickOnNote(this.id)')
 
-  // Note title
   let noteTitle = document.createElement('h2')
   noteTitle.className = 'note-title__container'
-  noteTitle.id = `${id}-title`
-  noteTitle.appendChild(document.createTextNode(title))
+  noteTitle.id = `${note.id}-title`
+  noteTitle.appendChild(document.createTextNode(note.title))
 
-  // Note content
   let noteContent = document.createElement('p')
   noteContent.className = 'note-textarea__container'
-  noteContent.id = `${id}-content`
-  noteContent.innerHTML = text.replace(/\n/g, '<br>');
+  noteContent.id = `${note.id}-content`
+  noteContent.innerHTML = note.content.replace(/\n/g, '<br>')
 
-  // Delete button
+  let noteTime = document.createElement('p')
+  noteTime.className = 'note-time__container'
+  noteTime.textContent = generateLastEdited(note.updatedAt)
+
   let delBtn = document.createElement('div')
   delBtn.className = 'buttons'
-  delBtn.id = id
-  delBtn.setAttribute('onclick', 'deleteNote(event)')
+  delBtn.id = note.id
+  delBtn.setAttribute('onclick', 'deleteNote(event, place)')
 
-  // Delete icon
   let delBtnImg = document.createElement('img')
   delBtnImg.src = "./icons/delete.png"
   delBtnImg.alt = "delete icon"
-  delBtnImg.id = id
+  delBtnImg.id = note.id
   delBtnImg.className = "buttons-icons"
 
-  // Set up all elements
   delBtn.appendChild(delBtnImg)
   newContainer.appendChild(noteTitle)
   newContainer.appendChild(noteContent)
+  newContainer.appendChild(noteTime)
   newContainer.appendChild(delBtn)
 
-  bank.appendChild(newContainer)
+  // The place where the container with the note will be displayed
+  place.appendChild(newContainer) 
 
   return newContainer
 }
-  
-  // const displayAllNotes = () => {
-  //   let notes = storage.getAll()
-  
-  //   for (let i = 0; i < notes.length; i++) {
-  //     displayNote(i, notes[i][0], notes[i][1])
-  //   }
-  // }
-  
-const deleteNote = (event) => {
+
+// Asks for confirmation to delete a note when clicking the button
+const deleteNote = (event, place) => {
   event.stopImmediatePropagation()
 
   if (confirm('Delete this note?')) {
     storage.deleteById(event.target.id)
-    removeNoteContainer(document.getElementById(event.target.id))
+    place.removeChild(document.getElementById(event.target.id))
   }
 }
-  
-const removeNoteContainer = (containerId) => {
-  bank.removeChild(containerId)
-}
-  
-const saveNote = () => {
-  if (currentId != null){
-    storage.updateById(currentId, [noteTitle.value, noteText.value])
+
+// Refreshes the note in the store
+const saveNote = (noteTitle, noteText, place) => {
+  const newTimeStamp = moment().valueOf();
+  if (currentId != null) {    
+    storage.updateById(currentId, {
+      id: currentId,
+      title: noteTitle.value, 
+      content: noteText.value,
+      updatedAt: newTimeStamp
+    })
+
     let currentNoteTitle = document.getElementById(`${currentId}-title`)
     let currentNoteContent = document.getElementById(`${currentId}-content`)
+
     currentNoteTitle.textContent = noteTitle.value
     currentNoteContent.innerHTML = noteText.value.replace(/\n/g, '<br>')
     currentId = null
-  } else { 
-    let id = storage.add([noteTitle.value, noteText.value])
-    displayNote(id, noteTitle.value, noteText.value)
+
+  } else {
+    const id = uuidv4();
+    storage.add(id, {
+      id: id,
+      title: noteTitle.value, 
+      content: noteText.value,
+      createdAt: newTimeStamp,
+      updatedAt: newTimeStamp
+    })
+    displayNote(storage.getById(id), place)
   }
 }
-  
+
+// Opens a modal window for editing a note
 const clickOnNote = (id) => {
   currentId = id
-  let currentNote = storage.getById(id);
-  noteTitle.value = currentNote[0]
-  noteText.value = currentNote[1]
+  const currentNote = storage.getById(id)
+  noteTitle.value = currentNote.title
+  noteText.value = currentNote.content
   modal.style.display = "block"
 }
-  
-const clickOnAddBtn = () => {
-  noteTitle.value = ''
-  noteText.value = ''
-}
 
-// Render application notes
-const renderNotes = (storage, filters) => { 
-  const notesBank = document.querySelector('.notes-bank') 
+// Render all notes according to the filter
+const renderNotes = (storage, filters, place) => {
   let notes = sortNotes(storage.getAll(), filters.sortBy)
 
-  const filteredNotes = notes.filter( (note) => {
-    const title = note[0].toLowerCase()
+  const filteredNotes = notes.filter((note) => {
+    const title = note.title.toLowerCase()
     const filter = filters.searchText.toLowerCase()
     return title.includes(filter)
-  })
+    })
 
-  notesBank.innerHTML = '';
+    place.innerHTML = '';
 
   if (filteredNotes.length > 0){
-    filteredNotes.forEach( (note) => {
-    const id = getId(storage.store, note)
-    const p = displayNote(id, note[0], note[1])
-    notesBank.appendChild(p)
-  })
+    filteredNotes.forEach((note) => {
+    const id = note.id
+    const p = displayNote(storage.getById(id), place)
+    place.appendChild(p)
+    })
   } else {
     const emptyMessage = document.createElement('p')
-    emptyMessage.textContent = 'Заметок пока нет'
+    emptyMessage.textContent = 'No notes to show'
     emptyMessage.classList.add('empty-message')
-    notesBank.appendChild(emptyMessage)
+    place.appendChild(emptyMessage)
   }
 }
 
+// Sorts notes by filters
 const sortNotes = (notes, sortBy) => {
   if (sortBy === 'byEdited'){
-    return notes.sort((a,b) => {
-      if (a.updatedAt > b.updatedAt){
-        return -1;
-    } else if (a.updatedAt < b.updatedAt){
-      return 1;
-    } else {
-      return 0;
-    }
+    return notes.sort( (a, b) => {
+        if (a.updatedAt > b.updatedAt){
+          return -1
+        } else if (a.updatedAt < b.updatedAt){
+        return 1
+        } else {
+        return 0
+      }
     })
   } else if (sortBy === 'byCreated') {
-    return notes.sort( (a,b) => {
-     if (a.createdAt > b.createdAt){
-      return -1;
-    } else if (a.createdAt < b.createdAt){
-      return 1;
-    } else {
-      return 0;
-    }
-  })
+    return notes.sort( (a, b) => {
+      if (a.createdAt > b.createdAt){
+        return -1
+      } else if (a.createdAt < b.createdAt){
+        return 1
+      } else {
+        return 0
+      }
+    })
   } else if (sortBy === 'alphabetical'){
-  return notes.sort( (a,b) => {
-  if (a[0].toLowerCase() < b[0].toLowerCase()){
-  return -1;
-  } else if (a[0].toLowerCase() > b[0].toLowerCase()){
-  return 1;
+    return notes.sort( (a, b) => {
+      if (a.title.toLowerCase() < b.title.toLowerCase()){
+        return -1
+      } else if (a.title.toLowerCase() > b.title.toLowerCase()){
+        return 1
+      } else {
+        return 0
+      }
+      })
   } else {
-  return 0;
-  }
-  })
-  } else {
-  return notes;
+    return notes
   }
 }
 
-const getId = (object, value) => {
-  return Object.keys(object).find(key => object[key] === value);
-}
+// Generate the last edited message
+const generateLastEdited = (timestamp) => `Last edited: ${moment(timestamp).fromNow()}`

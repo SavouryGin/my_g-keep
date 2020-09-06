@@ -5,8 +5,7 @@ class Storage {
         this._count = 0
     }
 
-    add(obj) {
-        let id = `${this._count}` 
+    add(id, obj) {
         this.store[id] = obj
         this._count++
         return id
