@@ -1,4 +1,4 @@
-// https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.js
+// From: https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.js
 
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
