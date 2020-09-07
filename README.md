@@ -1,5 +1,5 @@
 # My G-keep
-** Note manager created as a tutorial project **
+*Note manager created as a tutorial project*
 
 ## Functionality
 1. Notes are stored as objects in application memory
@@ -9,3 +9,5 @@
 5. Clicking on a saved note also brings up the editor window
 6. Search box filters notes by title or content
 7. Also, notes are filtered alphabetically, by creation time and by editing time (the moment.js library is used to work with time)
+
+![Demo Image](icons/demo.PNG)
