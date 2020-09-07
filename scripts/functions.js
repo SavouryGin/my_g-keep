@@ -21,17 +21,10 @@ const displayNote = (note, place) => {
   noteTime.textContent = generateLastEdited(note.updatedAt)
 
   let delBtn = document.createElement('div')
-  delBtn.className = 'buttons'
+  delBtn.className = 'del-button'
   delBtn.id = note.id
-  delBtn.setAttribute('onclick', 'deleteNote(event, place)')
+  delBtn.setAttribute('onclick', 'deleteNote(event)')
 
-  let delBtnImg = document.createElement('img')
-  delBtnImg.src = "./icons/delete.png"
-  delBtnImg.alt = "delete icon"
-  delBtnImg.id = note.id
-  delBtnImg.className = "buttons-icons"
-
-  delBtn.appendChild(delBtnImg)
   newContainer.appendChild(noteTitle)
   newContainer.appendChild(noteContent)
   newContainer.appendChild(noteTime)
@@ -44,12 +37,12 @@ const displayNote = (note, place) => {
 }
 
 // Asks for confirmation to delete a note when clicking the button
-const deleteNote = (event, place) => {
+const deleteNote = (event) => {
   event.stopImmediatePropagation()
 
   if (confirm('Delete this note?')) {
     storage.deleteById(event.target.id)
-    place.removeChild(document.getElementById(event.target.id))
+    bank.removeChild(document.getElementById(event.target.id))
   }
 }
 
@@ -99,8 +92,9 @@ const renderNotes = (storage, filters, place) => {
 
   const filteredNotes = notes.filter((note) => {
     const title = note.title.toLowerCase()
+    const content = note.content.toLowerCase()
     const filter = filters.searchText.toLowerCase()
-    return title.includes(filter)
+    return title.includes(filter) || content.includes(filter);
     })
 
     place.innerHTML = '';

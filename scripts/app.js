@@ -30,28 +30,28 @@ storage.add(startId, {
   updatedAt: timeStamp,
 })
 
-// Show start page
+// Render the start page
 renderNotes(storage, filters, bank);
 
 // When the user clicks the button, open the modal
-addBtn.onclick = function() {
+addBtn.onclick = () => {
   modal.style.display = "block"
   noteTitle.value = ''
   noteText.value = ''
 }
 
 // When the user clicks on close button, close the modal
-closeBtn.onclick = function() {
+closeBtn.onclick = () => {
   modal.style.display = "none"
 }
 
-saveBtn.onclick = function () {
+saveBtn.onclick = () => {
   saveNote(noteTitle, noteText, bank)
   modal.style.display = "none"
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = (event) => {
   if (event.target == modal) {
     modal.style.display = "none"
   }

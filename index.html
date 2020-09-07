@@ -8,7 +8,8 @@
 </head>
 <body>
     <div class="header">
-        <div class="container">
+        <div class="header__logo"></div>
+        <div class="header__container">
             <h1 class="header__title">My G-Keep</h1>
             <h2 class="header__subtitle">Note Manager</h2>
         </div>
@@ -16,8 +17,8 @@
     <!-- Search and sort fields -->
     <div class="actions">
         <div class="actions__container">
-            <input id="search-text" type="text" class="input" placeholder="Search">
-            <select name="" id="filter-by" class="dropdown">
+            <input id="search-text" type="text" class="input" placeholder="Search" tabindex="1">
+            <select name="" id="filter-by" class="dropdown" tabindex="2">
                 <option value="byEdited">Sort by last edited</option>
                 <option value="byCreated">Sort by recently created</option>
                 <option value="alphabetical">Sort alphabetically</option>
@@ -38,15 +39,15 @@
             </div>
             <div class="modal-footer">
                 <div class="modal-buttons">
-                    <div class="buttons" id="save-btn"><img src="./icons/checked.png" alt="Save" class="buttons-icons"></div><!--
-                    --><div class="buttons" id="close-btn"><img src="./icons/cancel.png" alt="Cancel" class="buttons-icons"></div>
+                    <div class="buttons" id="save-btn"></div><!--
+                    --><div class="buttons" id="close-btn"></div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="buttons" id="add-btn"><img src="./icons/add.png" alt="Add" class="buttons-icons"></div>
-
+    <!-- Button to add a note -->
+    <div class="buttons" id="add-btn" tabindex="3"></div>
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment-with-locales.js"></script>
     <script src="scripts/uuid.js"></script>
     <script src="scripts/storage.js"></script>
