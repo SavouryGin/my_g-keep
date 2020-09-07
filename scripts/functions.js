@@ -30,7 +30,6 @@ const displayNote = (note, place) => {
   newContainer.appendChild(noteTime)
   newContainer.appendChild(delBtn)
 
-  // The place where the container with the note will be displayed
   place.appendChild(newContainer) 
 
   return newContainer
@@ -48,7 +47,13 @@ const deleteNote = (event) => {
 
 // Refreshes the note in the store
 const saveNote = (noteTitle, noteText, place) => {
-  const newTimeStamp = moment().valueOf();
+  
+  const newTimeStamp = moment().valueOf()
+
+  if (noteTitle.value === '') {
+    noteTitle.value = 'No title'
+  }
+
   if (currentId != null) {    
     storage.updateById(currentId, {
       id: currentId,
@@ -73,6 +78,7 @@ const saveNote = (noteTitle, noteText, place) => {
       createdAt: newTimeStamp,
       updatedAt: newTimeStamp
     })
+    
     displayNote(storage.getById(id), place)
   }
 }

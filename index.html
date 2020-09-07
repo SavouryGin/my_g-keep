@@ -30,18 +30,17 @@
     <!-- Modal Window-->
     <div class="modal">
         <div class="modal-content">
-            <div class="modal-header">                
-                <h2>Modal Header</h2>
+            <div class="modal-header">
+                <div class="editor__logo"></div><!-- 
+                --><h2>Note Editor</h2>
             </div>
             <div class="modal-body">
-                <input type="text" placeholder="Name your note..." class="note-title"><!-- 
-                --><textarea name="" placeholder="Enter your note..." class="note-textarea"></textarea>
+                <input type="text" placeholder="Name your note..." class="note-title" maxlength="50" tabindex="4"><!-- 
+                --><textarea name="" placeholder="Enter your note..." class="note-textarea" tabindex="5"></textarea>
             </div>
             <div class="modal-footer">
-                <div class="modal-buttons">
-                    <div class="buttons" id="save-btn"></div><!--
-                    --><div class="buttons" id="close-btn"></div>
-                </div>
+                <div class="buttons" id="save-btn" tabindex="5"></div><!--
+                --><div class="buttons" id="close-btn" tabindex="7"></div>
             </div>
         </div>
     </div>

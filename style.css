@@ -51,7 +51,6 @@ h1, h2, h3, h4, h5, h6 {
 /* Required styles */
 
 body {
-    color: #FFFFFF;
     font-family: Helvetica, Arial, sans-serif;
     background-color: #1E1E1E;
 }
@@ -97,51 +96,44 @@ body {
 .actions__container {
     align-items: center;
     display: flex;
-    max-width: 63rem;
+    max-width: 65%;
     margin: 0 auto;
     min-height: 3rem;
-    padding: 0 1.6rem;
 }
 
 .actions__container--spaced {
     justify-content: space-between
 }
 
-#search-text {
+#search-text, #filter-by {
     width: 100%;
 }
 
 #search-text:focus, #filter-by:focus {
-    box-shadow: 4px 4px 8px #D27333;
-}
-
-#filter-by {
-    width: 100%;
+    box-shadow: 4px 4px 8px #1BCEB8;
 }
 
 /* Input forms */
 
 .input {
-    border: 1px solid #dedfe0;
-    /* border-radius: 5px; */
+    border: 1px solid #9ae7ce;
     font-size: 1.4rem;
     font-weight: 300;
     height: 3rem;
     margin-right: .8rem;
     padding: .4rem .8rem;
     background: #252526;
-    color: #FFFFFF;
+    color: #858585;
 }
 
 .dropdown {
-    /* border-radius: 5px; */
-    border: 1px solid #dedfe0;
+    border: 1px solid #9ae7ce;
     background: #252526;
     font-size: 1.4rem;
     font-weight: 300;
     height: 3rem;
     text-indent: 0.4rem;
-    color: #FFFFFF;
+    color: #858585;
 }
 
 /* Buttons */
@@ -159,20 +151,23 @@ body {
 
 #save-btn {
     background: url('./icons/checked.png') 0 0/contain no-repeat;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
 }
 
 #close-btn {
     background: url('./icons/cancel.png') 0 0/contain no-repeat;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
+    display: inline-block;
 }
 
 .del-button {
-    background: url('./icons/cancel.png') 0 0/contain no-repeat;
+    background: url('./icons/delete.png') 0 0/contain no-repeat;
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
@@ -180,17 +175,17 @@ body {
 }
 
 #add-btn:hover, #save-btn:hover, #close-btn:hover, .del-button:hover  {
-    box-shadow: 0px 0px 2rem #D27333;
+    box-shadow: 0px 0px 2rem #1BCEB8;
 }
 
-#add-btn:focus {
-    box-shadow: 0px 0px 2rem #D27333;
+#add-btn:focus, #save-btn:focus, #close-btn:focus {
+    box-shadow: 0px 0px 2rem #1BCEB8;
 }
 
 /* Notes Bank */
 
 .notes-bank {
-    max-width: 60rem;
+    max-width: 55%;
     margin: auto;
 }
 
@@ -198,7 +193,7 @@ body {
     text-decoration: none;
     color: #E77F21;
     background-color: #333333;
-    border: 1px solid #dedfe0;
+    border: 1px solid #9ae7ce;
     margin: 1.7rem 0;
     padding: 1.2rem 1.6rem;
     display: block;
@@ -220,7 +215,7 @@ body {
 }
 
 .note-time__container {
-    color: #CBCB37;
+    color: #00A6F9;
     font-size: 1rem;
     font-weight: 300;
     font-style: italic;
@@ -229,35 +224,36 @@ body {
 .empty-message {
     text-align: center;
     margin: 3.2rem 0;
-    font-size: 1rem;
+    font-size: 1.8rem;
+    color: #858585;
 }
 
 
 /* Modal window background */
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
 /* Modal content */
 
 .modal-content {
     position: relative;
-    background-color: #fefefe;
+    background-color: #252526;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
-    width: 80%;
+    border: 1px solid #9ae7ce;
+    width: 70%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -266,9 +262,24 @@ body {
 }
 
 .modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
+    padding: 1rem 1.6rem;
+    background-color: #333333;
+    color: #1BCEB8;
+    font-size: 2rem;
+}
+
+.editor__logo {
+    display: inline-block;
+    background: url('./icons/next.png') 0 0/contain no-repeat;
+    width: 3rem;
+    height: 3rem;
+    vertical-align: middle;
+}
+
+.modal-header h2 {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 1rem;
 }
 
 .modal-body {
@@ -277,8 +288,32 @@ body {
 
 .modal-footer {
     padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
+    background-color: #333333;
+    text-align: right;
+    padding: 0.5rem 0.5rem;
+}
+
+.note-title {
+    display: block;
+    font-size: 2rem;
+    margin: .4rem;
+    padding: 0.4rem;
+    width: 100%;
+    border: 1px solid #9ae7ce;
+    background-color: #1E1E1E;
+    color: #E77F21;
+
+}
+
+.note-textarea {
+    display: block;
+    font-size: 1.6rem;
+    margin: .4rem;
+    padding: 0.4rem;
+    width: 100%;
+    border: 1px solid #9ae7ce;
+    background-color: #1E1E1E;
+    color: #81fae0;
 }
 
 /* Add animation to modal window */

@@ -19,6 +19,7 @@ const filters = {
     searchText: '',
     sortBy: 'byEdited'
 }
+
 const startId = uuidv4();
 
 // Welcome message
@@ -31,7 +32,7 @@ storage.add(startId, {
 })
 
 // Render the start page
-renderNotes(storage, filters, bank);
+renderNotes(storage, filters, bank)
 
 // When the user clicks the button, open the modal
 addBtn.onclick = () => {
@@ -68,4 +69,3 @@ document.querySelector('#filter-by').addEventListener('change', (e) => {
   filters.sortBy = e.target.value
   renderNotes(storage, filters, bank)
 })
-
