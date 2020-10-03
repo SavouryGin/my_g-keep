@@ -214,6 +214,12 @@ body {
     color: #858585;
 }
 
+.note-textarea {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 5rem;
+}
+
 .note-time__container {
     color: #00A6F9;
     font-size: 1rem;
